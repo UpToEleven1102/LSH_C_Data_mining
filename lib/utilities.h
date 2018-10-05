@@ -7,29 +7,23 @@ typedef int bool;
 #define true 1
 #define false 0
 
+typedef struct DataPoint DataPoint, ListDataPoint;
+
 struct DataPoint {
     double *data;
-    struct DataPoint *next;
+    int cluster_number;
+    DataPoint *next;
 };
 
-struct LinkedListDataPoint {
-    struct DataPoint *first, *last;
-    int size;
+typedef struct HashValue HashValue, ListHashValue;
+
+struct HashValue {
+    int *value;
+    HashValue *next;
 };
 
-struct LinkedListMap {
-    struct Map *first, *last, *iterator;
-    int size;
-};
-
-struct Map {
-    int *key;
-    struct LinkedListDataPoint value;
-    int size;
-};
-
-struct DataPoint newDataPoint(int dim);
-struct DataPoint getElement(int dim, int idx, const double *data);
+DataPoint newDataPoint(int dim);
+DataPoint getElement(int dim, int idx, const double *data);
 
 double square(double n);
 
