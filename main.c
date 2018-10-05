@@ -43,9 +43,9 @@ int main() {
 
     //input data
     const int DIM = 4;
-    const int N_DATA = 20;
+    const int N_DATA = 100;
     const int M = 2; //about half of DIM
-    const double W = .25; //about 1/4 of max - min
+    const double W = .35; //about 1/4 of max - min
 
     double *data, **h;
     data = (double *) malloc(DIM*N_DATA * sizeof(double));

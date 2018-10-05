@@ -63,26 +63,32 @@ int LSH(int dim, int ndata, double *data, int m, double w, double **h, int **n_c
     //LInked list represents hash bucket for data point
     ListDataPoint *headDataPoint = NULL;
 
-    //pointers to hashValueList
-    HashValue *iterator, *last_node;
+    //pointers to hash buckets
+    HashValue *iterator, *last_hash_val_ptr;
+    DataPoint *last_data_point_ptr = headDataPoint;
+
+
     int *hashValue;
 
     for (int i = 0; i < ndata; ++i) {
         iterator = headHashVal;
-        last_node = iterator;
+        last_hash_val_ptr = iterator;
         hashValue = calculateHashValue(dim, m, i, w, data, h);
         clusterFound = false;
         cluster_idx = 0;
+
+        DataPoint dataPoint = getElement(dim, i, data);
 
         if (headHashVal != NULL) {
             while (iterator != NULL) {
                 if (equalHashValue(m, iterator->value, hashValue) == true) {
                     printf("Debug : found an existing cluster\n");
+
                     clusterFound = true;
                     break;
                 }
                 if (iterator->next == NULL) {
-                    last_node = iterator;
+                    last_hash_val_ptr = iterator;
                 }
                 iterator = iterator->next;
                 cluster_idx+=1;
@@ -92,17 +98,31 @@ int LSH(int dim, int ndata, double *data, int m, double w, double **h, int **n_c
                 HashValue *tempValue = (HashValue *) malloc(sizeof(HashValue));
                 tempValue->next = NULL;
                 tempValue->value = hashValue;
-                last_node->next = tempValue;
+                last_hash_val_ptr->next = tempValue;
                 n_cluster++;
             }
+
+            //add datapoint into linked list
+            last_data_point_ptr->next = (DataPoint*) malloc(sizeof(DataPoint));
+            last_data_point_ptr = last_data_point_ptr->next;
+            last_data_point_ptr->cluster_number = cluster_idx;
+            last_data_point_ptr->next = NULL;
+            last_data_point_ptr->data = dataPoint.data;
         } else {
             n_cluster = 1;
             headHashVal = (HashValue *) malloc(sizeof(HashValue));
             headHashVal->value = hashValue;
             headHashVal->next = NULL;
+
+            headDataPoint = (DataPoint*) malloc(sizeof(DataPoint));
+            headDataPoint->next = NULL;
+            headDataPoint->cluster_number = cluster_idx;
+            headDataPoint->data = dataPoint.data;
+            last_data_point_ptr = headDataPoint;
         }
-        *n_cluster_ptr = &n_cluster;
     }
+
+    *n_cluster_ptr = &n_cluster;
 
 //    HashValue *iterator2 = headHashVal;
 //
@@ -113,6 +133,21 @@ int LSH(int dim, int ndata, double *data, int m, double w, double **h, int **n_c
 //        }
 //        iterator2 = iterator2->next;
 //    }
+
+    DataPoint *ite = headDataPoint;
+    int counter = 0;
+    printf("data points linked list: \n");
+
+    while(ite !=NULL) {
+        printf("%d ---- cluster number: %d\n", counter, ite->cluster_number);
+        for(int i = 0; i< dim; i++) {
+            printf("%f \n", ite->data[i]);
+        }
+        ite= ite->next;
+    }
+
+
+    printf("number of cluster: %d\n", **n_cluster_ptr );
 
 
 //    int *hashValue = calculateHashValue(dim, m, 0, w, data, h);
