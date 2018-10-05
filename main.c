@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include "lib/utilities.h"
+#include "lib/LSH.h"
 
 int generateDataSet(int dim, int ndata, double *data) {
     for (int i = 0; i < dim * ndata; i++) {
@@ -40,24 +41,24 @@ double **generateHashFunctionSet(int m, int dim) {
 int main() {
     srand(time(NULL));
 
+    //input data
     const int DIM = 4;
     const int N_DATA = 20;
-    const int M = 2;
-    const double W = .25;
+    const int M = 2; //about half of DIM
+    const double W = .25; //about 1/4 of max - min
 
     double *data, **h;
     data = (double *) malloc(DIM*N_DATA * sizeof(double));
-
     generateDataSet(DIM, N_DATA, data);
 
     //TODO: remove after testing
-    //printDataSet(DIM, N_DATA, data);
+    printDataSet(DIM, 1, data);
 
     h = generateHashFunctionSet(M, DIM);
-    print2DimentionalArray(M, DIM, h);
+    //print2DimentionalArray(M, DIM, h);
 
-    int *n_cluster_ptr, **cluster_start, **cluster_size, **cluster_hash_val;
-
-
+    //output data
+    int *n_cluster_ptr, *cluster_start, *cluster_size, **cluster_hash_val;
+    LSH(DIM, N_DATA, data, M, W, h, &n_cluster_ptr, &cluster_start, &cluster_size, &cluster_hash_val);
     return 0;
 }

@@ -3,12 +3,33 @@
 
 #include <malloc.h>
 
-struct dataPoint {
+typedef int bool;
+#define true 1
+#define false 0
+
+struct DataPoint {
     double *data;
+    struct DataPoint *next;
 };
 
-struct dataPoint newDataPoint(int dim);
-struct dataPoint getElement(int dim, int idx, const double *data);
+struct LinkedListDataPoint {
+    struct DataPoint *first, *last;
+    int size;
+};
+
+struct LinkedListMap {
+    struct Map *first, *last, *iterator;
+    int size;
+};
+
+struct Map {
+    int *key;
+    struct LinkedListDataPoint value;
+    int size;
+};
+
+struct DataPoint newDataPoint(int dim);
+struct DataPoint getElement(int dim, int idx, const double *data);
 
 double square(double n);
 
