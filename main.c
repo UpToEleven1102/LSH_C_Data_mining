@@ -43,7 +43,7 @@ int main() {
 
     //input data
     const int DIM = 4;
-    const int N_DATA = 100;
+    const int N_DATA = 20;
     const int M = 2; //about half of DIM
     const double W = .35; //about 1/4 of max - min
 
@@ -52,13 +52,15 @@ int main() {
     generateDataSet(DIM, N_DATA, data);
 
     //TODO: remove after testing
-    printDataSet(DIM, 1, data);
+    printDataSet(DIM, N_DATA, data);
 
     h = generateHashFunctionSet(M, DIM);
-    //print2DimentionalArray(M, DIM, h);
 
     //output data
     int *n_cluster_ptr, *cluster_start, *cluster_size, **cluster_hash_val;
     LSH(DIM, N_DATA, data, M, W, h, &n_cluster_ptr, &cluster_start, &cluster_size, &cluster_hash_val);
+
+    printResult(DIM, M, N_DATA, *n_cluster_ptr, cluster_start, cluster_size, cluster_hash_val, data);
+
     return 0;
 }
