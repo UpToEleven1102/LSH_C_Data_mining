@@ -4,6 +4,7 @@
 #include <math.h>
 #include "lib/utilities.h"
 #include "lib/LSH.h"
+#include "lib/Search_LSH.h"
 
 int generateDataSet(int dim, int ndata, double *data) {
     for (int i = 0; i < dim * ndata; i++) {
@@ -12,7 +13,7 @@ int generateDataSet(int dim, int ndata, double *data) {
 }
 
 double *newUnitVector(int dim) {
-    double *unitVector = (double*) malloc(dim * sizeof(double));
+    double *unitVector = (double *) malloc(dim * sizeof(double));
     //generate unit vector
     generateDataSet(dim, 1, unitVector);
 
@@ -23,15 +24,15 @@ double *newUnitVector(int dim) {
     vectorLength = sqrt(vectorLength);
 
     for (int i = 0; i < dim; ++i) {
-        unitVector[i] = unitVector[i]/vectorLength;
+        unitVector[i] = unitVector[i] / vectorLength;
     }
 
     return unitVector;
 }
 
 double **generateHashFunctionSet(int m, int dim) {
-    double **h = (double**) malloc(m * sizeof(double*));
-    for (int i = 0; i< m; i++) {
+    double **h = (double **) malloc(m * sizeof(double *));
+    for (int i = 0; i < m; i++) {
         h[i] = newUnitVector(dim);
     }
 
@@ -48,7 +49,7 @@ int main() {
     const double W = .35; //about 1/4 of max - min
 
     double *data, **h;
-    data = (double *) malloc(DIM*N_DATA * sizeof(double));
+    data = (double *) malloc(DIM * N_DATA * sizeof(double));
     generateDataSet(DIM, N_DATA, data);
 
     //TODO: remove after testing
@@ -62,5 +63,22 @@ int main() {
 
     printResult(DIM, M, N_DATA, *n_cluster_ptr, cluster_start, cluster_size, cluster_hash_val, data);
 
+    double *query, *result_ptr;
+    query = (double *) malloc(DIM * sizeof(double));
+    result_ptr = (double *) malloc(DIM * sizeof(double));
+    generateDataSet(DIM, 1, query);
+
+    search_LSH(DIM, N_DATA, data, M, W, h, *n_cluster_ptr, cluster_start, cluster_size, cluster_hash_val, query,
+               result_ptr);
+
+    printf("\n\nquery point: \n");
+    for (int i = 0; i < DIM; ++i) {
+        printf("%f\n", query[i]);
+    }
+
+    printf("\n\n closest point: \n");
+    for (int i = 0; i < DIM; ++i) {
+        printf("%f\n", result_ptr[i]);
+    }
     return 0;
 }
