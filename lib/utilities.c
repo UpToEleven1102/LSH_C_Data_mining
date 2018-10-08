@@ -65,9 +65,10 @@ void printHashBuckets(int dim, int m, HashBucket* hashBucket){
 }
 
 void printResult(int dim, int m, int ndata, int n_cluster, int *cluster_start, int *cluster_size, int **cluster_hash_val, double *data){
+    printf("\n\n Result: \n\n");
     printf("-cluster hash val & cluster size & cluster start-\n");
     for (int i = 0; i < n_cluster; ++i) {
-        printf("cluster %d \n", i);
+        printf("\n\n\ncluster %d \n hash values: \n", i);
         for (int j = 0; j < m; ++j) {
             printf("%d\n", cluster_hash_val[i][j]);
         }

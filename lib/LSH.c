@@ -7,12 +7,9 @@
 
 double innerProduct(int dim, double *v1, double *v2) {
     double product = 0;
-    printf("dim : %d \n", dim);
     for (int i = 0; i < dim; i++) {
-        printf("v1: %f - v2: %f \n", v1[i], v2[i]);
         product += v1[i] * v2[i];
     }
-    printf("inner product: %f\n", product);
     return product;
 }
 
@@ -49,7 +46,7 @@ void setOutputValues(int dim, int n_cluster, int m, HashBucket *headBucket, int 
         cluster_hash_val[i] = (int *) malloc(m * sizeof(int));
     }
 
-    int cluster_idx = 0, start_idx = 0, data_idx = 0, counter = 0;
+    int cluster_idx = 0, start_idx = 0, data_idx = 0;
     HashBucket *ite_bucket = headBucket;
     DataPoint *ite_data = NULL;
     while (ite_bucket != NULL) {
@@ -74,8 +71,6 @@ void setOutputValues(int dim, int n_cluster, int m, HashBucket *headBucket, int 
         cluster_idx++;
         ite_bucket = ite_bucket->next;
     }
-
-    printf("counter: %d", counter);
 }
 
 HashBucket *LSH(int dim, int ndata, double *data, int m, double w, double **h, int **n_cluster_ptr, int **cluster_start,
@@ -143,7 +138,7 @@ HashBucket *LSH(int dim, int ndata, double *data, int m, double w, double **h, i
 
     setOutputValues(dim, **n_cluster_ptr, m, head_bucket_ptr, *cluster_start, *cluster_size, *cluster_hash_val, data);
 
-    printHashBuckets(dim, m, head_bucket_ptr);
+    //printHashBuckets(dim, m, head_bucket_ptr);
     printf("number of cluster: %d\n", **n_cluster_ptr);
 
     return head_bucket_ptr;
