@@ -10,12 +10,12 @@
 
 1. Windows
  - GNU bash, version 4.1.11(2)-release (x86_64-unknown-cygwin)
- - gcc main.c lib/LSH.c lib/utilities.c -o LSH -std=gnu99
+ - gcc main.c lib/LSH.c lib/utilities.c lib/Search_LSH.c -o LSH -std=gnu99
  - run LSH.exe file in Windows
 
 2. Ubuntu Linux 18.04 LTS
  - gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)
- - gcc main.c ./lib/LSH.c ./lib/utilities.c -std+gnu99 -o LSH
+ - gcc main.c ./lib/LSH.c ./lib/utilities.c ./lib/Search_LSH.c -std+gnu99 -o LSH
  - run ./LSH in ubuntu
 
 
