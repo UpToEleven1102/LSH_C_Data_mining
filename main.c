@@ -43,9 +43,9 @@ int main() {
     srand(time(NULL));
 
     //input data
-    const int DIM = 4;
-    const int N_DATA = 20;
-    const int M = 2; //about half of DIM
+    const int DIM = 8;
+    const int N_DATA = 100;
+    const int M = 4; //about half of DIM
     const double W = .35; //about 1/4 of max - min
 
     double *data, **h;
@@ -56,12 +56,14 @@ int main() {
     printDataSet(DIM, N_DATA, data);
 
     h = generateHashFunctionSet(M, DIM);
+    printf("hash functions\n");
+    print2DimentionalArray(M, DIM, h);
 
     //output data
     int *n_cluster_ptr, *cluster_start, *cluster_size, **cluster_hash_val;
+    //LSH
     LSH(DIM, N_DATA, data, M, W, h, &n_cluster_ptr, &cluster_start, &cluster_size, &cluster_hash_val);
-
-    printResult(DIM, M, N_DATA, *n_cluster_ptr, cluster_start, cluster_size, cluster_hash_val, data);
+//    printResult(DIM, M, N_DATA, *n_cluster_ptr, cluster_start, cluster_size, cluster_hash_val, data);
 
     double *query, *result_ptr;
     query = (double *) malloc(DIM * sizeof(double));

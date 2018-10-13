@@ -32,6 +32,7 @@ DataPoint *getElement(int dim, int idx, const double *data);
 double square(double n);
 
 void printArray(int length, const double* data);
+void print2DimentionalArray(int m, int dim, double** array);
 void printDataSet(int dim, int ndata, const double *data) ;
 void printHashBuckets(int dim, int m, HashBucket* hashBucket);
 void printResult(int dim, int m, int ndata, int n_cluster, int *cluster_start, int *cluster_size, int **cluster_hash_val, double *data);

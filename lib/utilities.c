@@ -33,6 +33,15 @@ void printArray(int length, const double* data) {
     }
 }
 
+void print2DimentionalArray(int m, int dim, double** array) {
+    for (int i = 0; i < m; ++i) {
+        printf("%d----\n", i);
+        for (int j = 0; j < dim; ++j) {
+            printf("%f \n", array[i][j]);
+        }
+    }
+}
+
 void printDataSet(int dim, int ndata, const double *data) {
     for(int i = 0; i< ndata; i++) {
         printf("---%d----\n", i);

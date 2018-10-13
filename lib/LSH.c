@@ -138,7 +138,7 @@ HashBucket *LSH(int dim, int ndata, double *data, int m, double w, double **h, i
 
     setOutputValues(dim, **n_cluster_ptr, m, head_bucket_ptr, *cluster_start, *cluster_size, *cluster_hash_val, data);
 
-    //printHashBuckets(dim, m, head_bucket_ptr);
+    printHashBuckets(dim, m, head_bucket_ptr);
     printf("number of cluster: %d\n", **n_cluster_ptr);
 
     return head_bucket_ptr;
