@@ -1,9 +1,5 @@
 # Local_Sensitive_Hashing ReadME File
- - CS 4331 Data Mining & High Performance Computing - 9/23/2018
- - Huyen Vu
- - Kurtis Jackson
- - Samuel Eash
-
+ - Data Mining & High Performance Computing - 9/23/2018
 
 
 ## File compilation
